@@ -1,7 +1,4 @@
 library day_night_theme_flutter;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'day_night_theme.dart';
+export 'model/theme_changer.dart';
