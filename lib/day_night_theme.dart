@@ -2,7 +2,7 @@ import 'package:day_night_theme_flutter/model/theme_changer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DayNightTheme extends StatelessWidget {
+class DayNightTheme extends StatefulWidget {
   final Widget Function(ThemeData currentTheme) builder;
 
   final ThemeData lightTheme;
@@ -25,8 +25,6 @@ class DayNightTheme extends StatelessWidget {
   /// default is 0
   final int sunsetMinutes;
 
-  final DayNightThemeChanger _themeChanger;
-
   DayNightTheme({
     @required this.builder,
     @required this.darkTheme,
@@ -39,28 +37,43 @@ class DayNightTheme extends StatelessWidget {
         assert(darkTheme != null, 'darkTheme can\'t be null'),
         assert(lightTheme != null, 'lightTheme can\'t be null'),
         assert(sunsetHour != null, 'sunsetHour can\'t be null'),
-        assert(sunsetMinutes != null,
-            'sunsetMinutes can\'t be null'),
+        assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null'),
         assert(sunriseHour != null, 'sunriseHour can\'t be null'),
-        assert(
-            sunriseMinutes != null, 'sunriseMinutes can\'t be null'),
-        _themeChanger = DayNightThemeChanger(
-          lightTheme,
-          darkTheme,
-          sunsetHour,
-          sunsetMinutes,
-          sunriseHour,
-          sunriseMinutes,
-        );
+        assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
+
+  @override
+  _DayNightThemeState createState() => _DayNightThemeState();
+}
+
+class _DayNightThemeState extends State<DayNightTheme> {
+  DayNightThemeChanger _themeChanger;
+
+  @override
+  void initState() {
+    super.initState();
+    _themeChanger = DayNightThemeChanger(
+      widget.lightTheme,
+      widget.darkTheme,
+      widget.sunsetHour,
+      widget.sunsetMinutes,
+      widget.sunriseHour,
+      widget.sunriseMinutes,
+    );
+  }
+  @override
+  void dispose() {
+    _themeChanger.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DayNightThemeChanger>.value(
       value: _themeChanger,
-      builder: (context, child){
+      builder: (context, child) {
         final themeChanger = Provider.of<DayNightThemeChanger>(context);
 
-        return builder(themeChanger.selectedTheme);
+        return widget.builder(themeChanger.selectedTheme);
       },
     );
   }

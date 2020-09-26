@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:day_night_theme_flutter/extensions/date_time_extension.dart';
 import 'package:flutter/material.dart';
 
 class DayNightThemeChanger extends ChangeNotifier {
@@ -46,9 +47,10 @@ class DayNightThemeChanger extends ChangeNotifier {
   }
 
   _init() {
-    DateTime now = DateTime.now();
+    DateTime now = CustomDateTime.current;
+
     // Dark theme start time evening 7 pm
-    DateTime sunriseTime = DateTime(
+    DateTime sunsetTime = DateTime(
       now.year,
       now.month,
       now.day,
@@ -56,7 +58,7 @@ class DayNightThemeChanger extends ChangeNotifier {
       this.sunsetMinutes,
     );
     // Dark theme to Light switch happen at 6 am
-    DateTime sunsetTime = DateTime(
+    DateTime sunriseTime = DateTime(
       now.year,
       now.month,
       now.day,
@@ -64,13 +66,14 @@ class DayNightThemeChanger extends ChangeNotifier {
       this.sunriseMinutes,
     );
 
+
     // time left to change the theme
     int timerSeconds;
 
     if (now.isAfter(sunriseTime) && now.isBefore(sunsetTime)) {
       debugPrint('Changing theme to lightTheme');
       changeTheme(lightTheme);
-      timerSeconds = sunriseTime.difference(now).inMilliseconds;
+      timerSeconds = sunsetTime.difference(now).inMilliseconds;
     } else if (now.isAfter(sunsetTime)) {
       debugPrint('Changing theme to darkTheme');
       changeTheme(darkTheme);
@@ -79,7 +82,7 @@ class DayNightThemeChanger extends ChangeNotifier {
     } else {
       debugPrint('Changing theme to darkTheme');
       changeTheme(darkTheme);
-      timerSeconds = sunsetTime.difference(now).inMilliseconds;
+      timerSeconds = sunriseTime.difference(now).inMilliseconds;
     }
     debugPrint('Time left to change the theme $timerSeconds');
 
@@ -109,4 +112,11 @@ class DayNightThemeChanger extends ChangeNotifier {
 
   /// returns true if current selected theme is light theme
   bool get isLightTheme => _selectedTheme == lightTheme;
+  
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 }
