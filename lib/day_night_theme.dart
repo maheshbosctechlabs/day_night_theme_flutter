@@ -39,7 +39,8 @@ class DayNightTheme extends StatefulWidget {
         assert(sunsetHour != null, 'sunsetHour can\'t be null'),
         assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null'),
         assert(sunriseHour != null, 'sunriseHour can\'t be null'),
-        assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
+        assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null'),
+        assert(sunriseHour < sunsetHour || (sunriseHour == sunsetHour && sunriseMinutes < sunsetMinutes),'sunrise time must be less than sunset time');
 
   @override
   _DayNightThemeState createState() => _DayNightThemeState();

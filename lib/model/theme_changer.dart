@@ -43,6 +43,11 @@ class DayNightThemeChanger extends ChangeNotifier {
     assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null');
     assert(sunriseHour != null, 'sunriseHour can\'t be null');
     assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
+    assert(
+        sunriseHour < sunsetHour ||
+            (sunriseHour == sunsetHour && sunriseMinutes < sunsetMinutes),
+        'sunrise time must be less than sunset time');
+
     _init();
   }
 
@@ -65,7 +70,6 @@ class DayNightThemeChanger extends ChangeNotifier {
       this.sunriseHour,
       this.sunriseMinutes,
     );
-
 
     // time left to change the theme
     int timerSeconds;
@@ -112,7 +116,6 @@ class DayNightThemeChanger extends ChangeNotifier {
 
   /// returns true if current selected theme is light theme
   bool get isLightTheme => _selectedTheme == lightTheme;
-  
 
   @override
   void dispose() {
