@@ -1,0 +1,18 @@
+name: day_night_theme_flutter
+description: A Flutter package that helps to change the theme of the app with day and night.
+version: 0.0.1
+author: null
+homepage: https://bosctechlabs.com/
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^4.3.2+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter: null
