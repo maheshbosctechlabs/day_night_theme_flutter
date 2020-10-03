@@ -43,9 +43,15 @@ class DayNightThemeChanger extends ChangeNotifier {
     assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null');
     assert(sunriseHour != null, 'sunriseHour can\'t be null');
     assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
-    assert(
-        sunriseHour < sunsetHour ||
-            (sunriseHour == sunsetHour && sunriseMinutes < sunsetMinutes),
+    
+    DateTime now = CustomDateTime.current;
+
+    DateTime sunriseTime =
+        DateTime(now.year, now.month, now.day, sunriseHour, sunriseMinutes);
+    DateTime sunsetTime =
+        DateTime(now.year, now.month, now.day, sunsetHour, sunsetMinutes);
+
+    assert(sunriseTime.isBefore(sunsetTime),
         'sunrise time must be less than sunset time');
 
     _init();

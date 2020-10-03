@@ -1,6 +1,8 @@
-import 'package:day_night_theme_flutter/model/theme_changer.dart';
+import 'package:day_night_theme_flutter/extensions/date_time_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:day_night_theme_flutter/model/theme_changer.dart';
 
 class DayNightTheme extends StatefulWidget {
   final Widget Function(ThemeData currentTheme) builder;
@@ -33,14 +35,25 @@ class DayNightTheme extends StatefulWidget {
     this.sunriseMinutes = 0,
     this.sunsetMinutes = 0,
     this.sunsetHour = 19,
-  })  : assert(builder != null, 'builder can\'t be null'),
-        assert(darkTheme != null, 'darkTheme can\'t be null'),
-        assert(lightTheme != null, 'lightTheme can\'t be null'),
-        assert(sunsetHour != null, 'sunsetHour can\'t be null'),
-        assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null'),
-        assert(sunriseHour != null, 'sunriseHour can\'t be null'),
-        assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null'),
-        assert(sunriseHour < sunsetHour || (sunriseHour == sunsetHour && sunriseMinutes < sunsetMinutes),'sunrise time must be less than sunset time');
+  }) {
+    assert(builder != null, 'builder can\'t be null');
+    assert(darkTheme != null, 'darkTheme can\'t be null');
+    assert(lightTheme != null, 'lightTheme can\'t be null');
+    assert(sunsetHour != null, 'sunsetHour can\'t be null');
+    assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null');
+    assert(sunriseHour != null, 'sunriseHour can\'t be null');
+    assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
+
+    DateTime now = CustomDateTime.current;
+
+    DateTime sunriseTime =
+        DateTime(now.year, now.month, now.day, sunriseHour, sunriseMinutes);
+    DateTime sunsetTime =
+        DateTime(now.year, now.month, now.day, sunsetHour, sunsetMinutes);
+
+    assert(sunriseTime.isBefore(sunsetTime),
+        'sunrise time must be less than sunset time');
+  }
 
   @override
   _DayNightThemeState createState() => _DayNightThemeState();
@@ -61,6 +74,7 @@ class _DayNightThemeState extends State<DayNightTheme> {
       widget.sunriseMinutes,
     );
   }
+
   @override
   void dispose() {
     _themeChanger.dispose();
