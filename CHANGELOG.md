@@ -1,3 +1,7 @@
+## [0.0.3]
+
+* readme updated
+
 ## [0.0.2]
 
 * pub.dev analysis related changes
