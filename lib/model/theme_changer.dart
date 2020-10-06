@@ -43,7 +43,7 @@ class DayNightThemeChanger extends ChangeNotifier {
     assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null');
     assert(sunriseHour != null, 'sunriseHour can\'t be null');
     assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
-    
+
     DateTime now = CustomDateTime.current;
 
     DateTime sunriseTime =
