@@ -1,7 +1,7 @@
 # day_night_theme_flutter
 A Flutter plugin that helps you to automatically change the theme of the app with sunrise and sunset. Just specify the light and dark theme to use, and you are all set. You can use your custom sunrise and sunset time too.
 
-<img src = "https://github.com/maheshbosctechlabs/day_night_theme_flutter/blob/main/plugin_preview.png" height= "700"/>
+<img src = "https://raw.githubusercontent.com/maheshbosctechlabs/day_night_theme_flutter/main/plugin_preview.png" height= "700"/>
 
 ## How to use?
 
