@@ -4,7 +4,7 @@ import 'package:day_night_theme_flutter/extensions/date_time_extension.dart';
 import 'package:flutter/material.dart';
 
 class DayNightThemeChanger extends ChangeNotifier {
-  ThemeData _selectedTheme;
+  late ThemeData _selectedTheme;
 
   final ThemeData lightTheme;
 
@@ -27,7 +27,7 @@ class DayNightThemeChanger extends ChangeNotifier {
   final int sunsetMinutes;
 
   /// Timer will be required to change the theme after some time.
-  Timer _timer;
+  Timer? _timer;
 
   DayNightThemeChanger(
     this.lightTheme,
@@ -37,23 +37,13 @@ class DayNightThemeChanger extends ChangeNotifier {
     this.sunriseHour,
     this.sunriseMinutes,
   ) {
-    assert(darkTheme != null, 'darkTheme can\'t be null');
-    assert(lightTheme != null, 'lightTheme can\'t be null');
-    assert(sunsetHour != null, 'sunsetHour can\'t be null');
-    assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null');
-    assert(sunriseHour != null, 'sunriseHour can\'t be null');
-    assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
-
     DateTime now = CustomDateTime.current;
-
     DateTime sunriseTime =
         DateTime(now.year, now.month, now.day, sunriseHour, sunriseMinutes);
     DateTime sunsetTime =
         DateTime(now.year, now.month, now.day, sunsetHour, sunsetMinutes);
-
     assert(sunriseTime.isBefore(sunsetTime),
         'sunrise time must be less than sunset time');
-
     _init();
   }
 
@@ -79,7 +69,6 @@ class DayNightThemeChanger extends ChangeNotifier {
 
     // time left to change the theme
     int timerSeconds;
-
     if (now.isAfter(sunriseTime) && now.isBefore(sunsetTime)) {
       debugPrint('Changing theme to lightTheme');
       changeTheme(lightTheme);
@@ -95,9 +84,7 @@ class DayNightThemeChanger extends ChangeNotifier {
       timerSeconds = sunriseTime.difference(now).inMilliseconds;
     }
     debugPrint('Time left to change the theme $timerSeconds');
-
     _timer?.cancel();
-
     _timer = Timer(
       Duration(milliseconds: timerSeconds),
       () {
@@ -106,7 +93,7 @@ class DayNightThemeChanger extends ChangeNotifier {
     );
   }
 
-  /// Manually chnage the theme of the app
+  /// Manually change the theme of the app
   /// If you don't wish to change the theme at sunset / sunrise time
   /// set the ``turnOffDynamicThemeChange`` to true
   changeTheme(ThemeData newTheme, {bool turnOffDynamicThemeChange = false}) {
