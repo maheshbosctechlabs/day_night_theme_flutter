@@ -1,3 +1,7 @@
+## [0.0.5]
+
+* Null safety added
+
 ## [0.0.4]
 
 * minor changes
