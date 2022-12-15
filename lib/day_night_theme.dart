@@ -28,22 +28,14 @@ class DayNightTheme extends StatefulWidget {
   final int sunsetMinutes;
 
   DayNightTheme({
-    @required this.builder,
-    @required this.darkTheme,
-    @required this.lightTheme,
+    required this.builder,
+    required this.darkTheme,
+    required this.lightTheme,
     this.sunriseHour = 6,
     this.sunriseMinutes = 0,
     this.sunsetMinutes = 0,
     this.sunsetHour = 19,
   }) {
-    assert(builder != null, 'builder can\'t be null');
-    assert(darkTheme != null, 'darkTheme can\'t be null');
-    assert(lightTheme != null, 'lightTheme can\'t be null');
-    assert(sunsetHour != null, 'sunsetHour can\'t be null');
-    assert(sunsetMinutes != null, 'sunsetMinutes can\'t be null');
-    assert(sunriseHour != null, 'sunriseHour can\'t be null');
-    assert(sunriseMinutes != null, 'sunriseMinutes can\'t be null');
-
     DateTime now = CustomDateTime.current;
 
     DateTime sunriseTime =
@@ -60,7 +52,7 @@ class DayNightTheme extends StatefulWidget {
 }
 
 class _DayNightThemeState extends State<DayNightTheme> {
-  DayNightThemeChanger _themeChanger;
+  late DayNightThemeChanger _themeChanger;
 
   @override
   void initState() {
