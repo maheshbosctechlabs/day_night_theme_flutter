@@ -7,6 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // Light theme of your app
+  MyApp({required Key key, required this.title}) : super(key: key);
   final ThemeData _lightTheme = ThemeData(
     primarySwatch: Colors.blue,
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           // apply the theme
           theme: selectedTheme,
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
+          home: MyHomePage(key: UniqueKey(), title: 'Flutter Demo Home Page'),
         );
       },
     );
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
